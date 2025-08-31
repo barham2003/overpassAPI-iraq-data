@@ -1,0 +1,63 @@
+
+1. Peak Mountains
+////////////////////////////////////////////////////////////////////////////////////////
+[out:json][timeout:25];
+area(id:3600304934)->.searchArea;
+nwr["natural"="peak"](area.searchArea);
+out geom;
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+2. Global Land Cover
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+[out:json][timeout:60];
+{{geocodeArea:Iraq}}->.searchArea;
+(
+  nwr["natural"="wood"](area.searchArea);
+  nwr["landuse"="forest"](area.searchArea);
+  nwr["natural"="grassland"](area.searchArea);
+  nwr["landuse"="meadow"](area.searchArea);
+  nwr["landuse"="farmland"](area.searchArea);
+  nwr["natural"="scrub"](area.searchArea);
+  nwr["natural"="wetland"](area.searchArea);
+  nwr["natural"="desert"](area.searchArea);
+  nwr["landuse"="residential"](area.searchArea);
+  nwr["landuse"="industrial"](area.searchArea);
+  nwr["landcover"](area.searchArea);  // catch-all for landcover=* tags
+)->.landcover;
+.landcover out geom;
+////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+3. Water Bodies & Waterways
+////////////////////////////////////////////////////////////////////////////////////////
+[out:json][timeout:60];
+{{geocodeArea:Iraq}}->.searchArea;
+(
+  nwr["natural"="water"](area.searchArea);
+  nwr["water"="lake"](area.searchArea);
+  nwr["water"="reservoir"](area.searchArea);
+  nwr["landuse"="reservoir"](area.searchArea);
+  nwr["natural"="wetland"](area.searchArea);
+
+  nwr["waterway"="river"](area.searchArea);
+  nwr["waterway"="stream"](area.searchArea);
+  nwr["waterway"="canal"](area.searchArea);
+  nwr["waterway"="drain"](area.searchArea);
+  nwr["waterway"="ditch"](area.searchArea);
+
+  nwr["natural"="coastline"](area.searchArea);
+)->.waterstuff;
+
+.waterstuff out geom;
+
+
+
+4. Parks
+////////////////////////////////////////////////////////////////////////////////////////
+[out:json][timeout:60];
+{{geocodeArea:Iraq}}->.searchArea;
+nwr["leisure"="park"](area.searchArea);
+out geom;
+////////////////////////////////////////////////////////////////////////////////////////
