@@ -242,7 +242,7 @@ area(id:3600304934)->.searchArea;
 
 ## 🏔️ Peak Mountains
 ```bash
-curl "https://api.geoapify.com/v2/places?categories=natural.mountain&filter=rect:37.58482251363806,37.69697510072004,50.935619664490716,27.77968438752873&limit=20&apiKey=3fb279b17d14496ba59c7730ddb78007"
+curl "https://api.geoapify.com/v2/places?categories=natural.mountain&filter=rect:37.58482251363806,37.69697510072004,50.935619664490716,27.77968438752873&limit=20&apiKey=YOUR_API_KEY"
 ```
 
 
