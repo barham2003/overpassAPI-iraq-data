@@ -51,6 +51,30 @@ out geom;
 )->.waterstuff;
 
 .waterstuff out geom;
+////////////////////////////////////////////////////////////////////////////////////////
+
+3B. Water Bodies & Waterways
+////////////////////////////////////////////////////////////////////////////////////////
+[out:json][timeout:60];
+// Define Iraq's area
+area["ISO3166-1"="IQ"]->.searchArea;
+
+// Waterways (rivers, streams)
+(
+  way["waterway"](area.searchArea);
+  relation["waterway"](area.searchArea);
+);
+
+// Water bodies (lakes, ponds, reservoirs)
+(
+  way["natural"="water"](area.searchArea);
+  relation["natural"="water"](area.searchArea);
+);
+
+out body;
+>;
+out skel qt;
+////////////////////////////////////////////////////////////////////////////////////////
 
 
 
