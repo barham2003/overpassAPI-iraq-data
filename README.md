@@ -80,6 +80,7 @@ area(id:3600304934)->.searchArea;
 
 This query pulls various water-related features like lakes, rivers, canals, and coastlines found in Iraq.
 
+3A.
 ### OverpassQL Query
 
 ```overpassql
@@ -123,6 +124,50 @@ area(id:3600304934)->.searchArea;
 )->.waterstuff;
 .waterstuff out geom;'
 ```
+
+
+3B.
+### OverpassQL Query
+
+```overpassql
+  [out:json][timeout:60];
+  area["ISO3166-1"="IQ"]->.searchArea;
+  (
+    way["waterway"](area.searchArea);
+    relation["waterway"](area.searchArea);
+  );
+  (
+    way["natural"="water"](area.searchArea);
+    relation["natural"="water"](area.searchArea);
+  );
+
+  out body;
+  >;
+  out skel qt;
+```
+
+### Ready-to-run curl snippet
+
+```bash
+curl -X POST https://overpass-api.de/api/interpreter \
+  -H "Content-Type: application/x-www-form-urlencoded; charset=UTF-8" \
+  --data-urlencode 'data=[out:json][timeout:60];
+  area["ISO3166-1"="IQ"]->.searchArea;
+  (
+    way["waterway"](area.searchArea);
+    relation["waterway"](area.searchArea);
+  );
+  (
+    way["natural"="water"](area.searchArea);
+    relation["natural"="water"](area.searchArea);
+  );
+
+  out body;
+  >;
+  out skel qt;'
+```
+
+
 
 ## 🌳 Parks
 
@@ -190,3 +235,48 @@ area(id:3600304934)->.searchArea;
 - Timeout values are set based on query complexity
 - The `out geom;` statement ensures geometry data is included in the results
 - For large datasets, consider using smaller bounding boxes or additional filters to reduce response size
+
+
+
+# 🌍 Geoapify API Queries for Iraq
+
+## 🏔️ Peak Mountains
+```bash
+curl "https://api.geoapify.com/v2/places?categories=natural.mountain&filter=rect:37.58482251363806,37.69697510072004,50.935619664490716,27.77968438752873&limit=20&apiKey=3fb279b17d14496ba59c7730ddb78007"
+```
+
+
+
+## 🌱 Global Land Cover
+unfortunately the API does not provide any data about global land cover.
+
+
+
+## 💧 Water Bodies & Waterways
+```bash
+curl "https://api.geoapify.com/v2/places?categories=natural.water&filter=rect:40.17462177333435,36.039997596081136,48.61602771531442,29.7658300395906&limit=20&apiKey=YOUR_API_KEY"
+```
+
+
+
+
+
+## 🌳 Parks
+```bash
+curl "https://api.geoapify.com/v2/places?categories=entertainment.theme_park,entertainment.water_park,entertainment.activity_park,leisure.park,national_park&filter=rect:39.06596026018283,36.72694808678122,48.50666176751,29.739243146264172&limit=20&apiKey=YOUR_API_KEY"
+```
+
+
+
+
+
+## 🚗 Transportation & Buildings
+```bash
+curl "https://api.geoapify.com/v2/places?categories=building,public_transport,highway&filter=rect:40.46427679935349,35.34780695837636,46.997736942613265,30.489420049490555&limit=20&apiKey=YOUR_API_KEY"
+```
+
+
+## Notes
+- All the data and queries are based on this site [geoapify.com](https://www.geoapify.com) 
+- All queries need an api key which should be generated from the source site. click [here](https://myprojects.geoapify.com/login) to get api key
+- Many other things can be generated from the api, also it can be more detailed if selected smaller region. for better queries visit this api [playground](https://apidocs.geoapify.com/playground)
